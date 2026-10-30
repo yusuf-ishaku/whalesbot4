@@ -1,0 +1,29 @@
+# One deployment = one copy of this file + one .env. Run: ./scripts/deploy.sh
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: tokengate
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-tokengate}
+      POSTGRES_DB: tokengate
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tokengate"]
+      interval: 5s
+      retries: 10
+  app:
+    build:
+      context: .
+      args:
+        CODE_VERSION: ${CODE_VERSION:-dev}
+    restart: unless-stopped
+    depends_on:
+      db: { condition: service_healthy }
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://tokengate:${DB_PASSWORD:-tokengate}@db:5432/tokengate
+      CODE_VERSION: ${CODE_VERSION:-dev}
+    ports: ["${PORT:-3000}:3000"]
+volumes:
+  pgdata:

@@ -1,0 +1,6 @@
+# Dev/test database only: `docker compose -f docker-compose.dev.yml up -d` (Postgres on localhost:5433)
+services:
+  db:
+    image: postgres:16
+    environment: { POSTGRES_USER: tokengate, POSTGRES_PASSWORD: tokengate, POSTGRES_DB: tokengate }
+    ports: ["5433:5432"]

@@ -1,0 +1,35 @@
+{
+  "name": "token-gate",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
+    "migrate": "tsx src/db/migrate.ts",
+    "admin:create": "tsx src/cli/createAdmin.ts",
+    "test": "vitest run",
+    "node": "hardhat node",
+    "fixtures": "tsx fixtures/setup.ts",
+    "fixtures:set": "tsx fixtures/set.ts",
+    "fixtures:env": "tsx fixtures/printEnv.ts"
+  },
+  "dependencies": {
+    "fastify": "^5.0.0",
+    "grammy": "^1.46.0",
+    "pg": "^8.13.0",
+    "tsx": "^4.19.0",
+    "viem": "^2.21.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.11.0",
+    "hardhat": "^2.29.1",
+    "solc": "^0.8.26",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
